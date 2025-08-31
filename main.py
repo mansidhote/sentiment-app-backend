@@ -41,3 +41,7 @@ def analyze_sentiment(input: TextInput):
     top = sorted_result[0]
 
     return {"label": top['label'], "score": round(top['score'], 3)}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
