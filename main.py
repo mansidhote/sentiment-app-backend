@@ -4,6 +4,7 @@ from pydantic import BaseModel
 import requests
 import os
 from dotenv import load_dotenv
+import uvicorn
 
 load_dotenv()
 
@@ -18,7 +19,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Store your Hugging Face API token securely
 HUGGINGFACE_API_KEY = os.getenv("HUGGINGFACE_API_KEY")
 
 API_URL = "https://api-inference.huggingface.co/models/cardiffnlp/twitter-roberta-base-sentiment"
@@ -43,5 +43,4 @@ def analyze_sentiment(input: TextInput):
     return {"label": top['label'], "score": round(top['score'], 3)}
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000)
